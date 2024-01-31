@@ -38,7 +38,7 @@ jobs:
       - name: Install deps
         run: bun i
       - name: Build
-        run: BASE_URL=/new-mysite/ bun run build
+        run: BASE_URL=/new-mysite/ bun --bun run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
