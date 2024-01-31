@@ -1,0 +1,9 @@
+---
+import { Image } from 'astro:assets'
+import nakasyouIcon from '../assets/nakasyou.png'
+
+interface Props {
+  class?: string
+}
+---
+<Image src={nakasyouIcon} class={Astro.props.class} alt="nakasyou icon" />

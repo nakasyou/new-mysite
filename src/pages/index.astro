@@ -1,16 +1,189 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import NakasyouIcon from '../components/NakasyouIcon.astro'
+import { XMLParser } from 'fast-xml-parser'
+import { CacheSystem } from '../utils/cache'
 
+import githubIcon from 'simple-icons/icons/github.svg'
+import matrixIcon from 'simple-icons/icons/matrix.svg'
+import xIcon from 'simple-icons/icons/x.svg'
+import scratchIcon from 'simple-icons/icons/scratch.svg'
+import instagramIcon from 'simple-icons/icons/instagram.svg'
+import misskeyIcon from 'simple-icons/icons/misskey.svg'
+import zennIcon from 'simple-icons/icons/zenn.svg'
+import Menu from '../components/Menu.svelte'
+import { Image } from 'astro:assets'
+
+const xmlParser = new XMLParser({
+  ignoreAttributes: false
+})
+
+const cache = new CacheSystem('rss')
+
+const zennRssData = new TextDecoder().decode(await cache.getCache('zenn-rss', async () => {
+  const res = await fetch('https://zenn.dev/nakasyou/feed')
+  return new Uint8Array(await res.arrayBuffer())
+}))
+const sizumeRssData = new TextDecoder().decode(await cache.getCache('sizume-rss', async () => {
+  const res = await fetch('https://sizu.me/nakasyou/rss')
+  return new Uint8Array(await res.arrayBuffer())
+}))
+
+const jaJpDateTimeFormat = new Intl.DateTimeFormat('ja-jp')
+const posts = [
+  ...xmlParser.parse(zennRssData).rss.channel.item as any[],
+  ...xmlParser.parse(sizumeRssData).rss.channel.item as any[],
+].map((item: any) => ({
+  title: item.title,
+  description: item.description,
+  date: new Date(item.pubDate),
+  enclosure: item.enclosure['@_url'],
+  link: item.link,
+  type: item.link.includes('zenn.dev') ? 'Zenn' : 'しずかなインターネット'
+})).sort((a, b) => {
+  return a.date.getTime() > b.date.getTime() ? -1 : 1
+})
+
+const menuLinks: [string, string][] = [
+  ['Home', '#top'],
+  ['About', '#about'],
+  ['Posts', '#posts'],
+  ['Links', '#links']
+]
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Shotaro's Website" description=''>
+  <header class="fixed top-0 w-full">
+    <div class="flex p-2 justify-between">
+      <div class="font-bold">Shotaro's Website</div>
+      {
+        menuLinks.map(link => (<div class="hidden md:block">
+          <a href={link[1]} title={link[0]}>{link[0]}</a>
+        </div>))
+      }
+      <div class="block md:hidden">
+        <Menu links={menuLinks} client:load />
+      </div>
+    </div>
+  </header>
+  <main>
+    <div>
+      <div class="h-[100dvh] grid items-between" id="top">
+        <div class="flex justify-center items-center gap-5">
+          <NakasyouIcon class="rounded-full w-20 h-20" />
+          <div>
+            <div class="text-2xl">
+              Shotaro Nakamura
+            </div>
+            <hr class="my-1"/>
+            <div class="text-lg">
+              中村 承太郎
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mx-5">
+        {/* About */}
+        <div class="min-h-[100dvh] py-11" id="about">
+          <div class="text-2xl font-bold">About</div>
+          <hr class="my-1" />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 place-content-around ml-2">
+            <div>
+              <div class="font-bold">基本情報</div>
+              <ul class="list-disc list-inside">
+                <li>中学2年生</li>
+                <li>男子</li>
+                <li>11/3生まれ</li>
+              </ul>
+            </div>
+            <div>
+              <div class="font-bold">趣味</div>
+              <ul class="list-disc list-inside">
+                <li>プログラミング</li>
+              </ul>
+            </div>
+            <div>
+              <div class="font-bold">好きなもの/こと</div>
+              <ul class="list-disc list-inside">
+                <li>プログラミング</li>
+                <li>JavaScript/TypeScript</li>
+                <li>イタリアンピザ</li>
+                <li>タコライス</li>
+                <li>読書</li>
+                <li>あんこがはいったお菓子</li>
+              </ul>
+            </div>
+            <div>
+              <div class="font-bold">きらいなもの/こと</div>
+              <ul class="list-disc list-inside">
+                <li>スギ花粉含むアレルゲン</li>
+                <li>長距離走る</li>
+              </ul>
+            </div>
+            <div>
+              <div class="font-bold">自称得意なもの/こと</div>
+              <ul class="list-disc list-inside">
+                <li>Web開発</li>
+                <li>タイピング</li>
+              </ul>
+            </div>
+            <div>
+              <div class="font-bold">苦手なもの/こと</div>
+              <ul class="list-disc list-inside">
+                <li>ネイティブなプログラミング言語</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        {/* Posts */}
+        <div class="min-h-[100dvh] py-11" id="posts">
+          <div class="text-2xl font-bold">Posts</div>
+          <hr class="my-1" />
+          <div>私の投稿</div>
+          <div>
+            <div class="grid gap-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+              {
+                posts.slice(0, 6).map(post => {
+                  return <a href={post.link} target="_blank" rel="noreferrer noopener">
+                      <div class="border p-1 rounded-md">
+                      <div class="flex justify-center">
+                        <img src={post.enclosure} alt="enclosure" class="max-w-full h-32 object-contain" />
+                      </div>
+                      <div class="text-xl">{ post.title }</div>
+                      <div class="flex justify-between px-2">
+                        <div>{ jaJpDateTimeFormat.format(post.date) }</div>
+                        <div class="text-slate-600">
+                          { post.type }
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                })
+              }
+            </div>
+          </div>
+        </div>
+        {/* Links */}
+        <div class="min-h-[100dvh] py-11 flex flex-col" id="links">
+          <div class="text-2xl font-bold">Links</div>
+          <hr class="my-1" />
+          <div class="h-full flex-1 grid items-center justify-center">
+            <div class="flex gap-2">
+              <a href="https://github.com/nakasyou"><Image src={githubIcon} alt="GitHub" /></a>
+              <a href="https://matrix.to/#/@nakasyou:matrix.org"><Image src={matrixIcon} alt="Matrix" /></a>
+              <a href="https://x.com/nakasyou"><Image src={xIcon} alt="X" /></a>
+              <a href="https://scratch.mit.edu/users/nakasyou"><Image src={scratchIcon} alt="Scratch" /></a>
+              <a href="https://instagram.com/nakasyou"><Image src={instagramIcon} alt="Instagram" /></a>
+              <a href="https://misskey.io/@nakasyou"><Image src={misskeyIcon} alt="misskey.io" /></a>
+              <a href="https://zenn.dev/nakasyou"><Image src={zennIcon} alt="Zenn" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+<style is:global>
+  html {
+    @apply scroll-smooth;
+  }
+</style>

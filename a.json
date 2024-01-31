@@ -1,0 +1,83 @@
+[
+  {
+    "title": "Astro で自分だけのアダプターを作る",
+    "description": "AstroというWebフレームワークは知っていますか？\nAstroは、SSR/SSGができて、NodeはCloudFlare Workers、Denoなどの好きなランタイムで動かせて、ReactやVueなど好きなUIフレームワークを使えるWebフレームワークです。\nその「好きなランタイムで動かせる」を実現しているのが、AstroのAdapterです。\nこの記事では、AstroのAdapterの仕組みを調べて、Adapterを作っていきます。\n\n Adapterについて詳しく\nAdapterは、前述した通り、Astroのサーバーをいろいろなランタイムで動かすためのものです。\n言い換えれば、...",
+    "link": "https://zenn.dev/trans/articles/20231220_astro_my_adapter",
+    "guid": "https://zenn.dev/trans/articles/20231220_astro_my_adapter",
+    "pubDate": "Wed, 20 Dec 2023 08:09:46 GMT",
+    "enclosure": "",
+    "dc:creator": "nakasyou"
+  },
+  {
+    "title": "DenoでLINE Botを作っちゃう",
+    "description": "こんにちは！Liberlunaのnakasyouです！\nLiberlunaのLINE公式アカウントは、Denoで動いています。DenoでLINE公式アカウントを作る方法を紹介します！\n\n 対象読者\n\nDenoの基本的な使い方がわかっている人\nLINE BotをDenoで作ってみたい人\nDeno Deployの基本的な使い方がわかっている人\n\n\n 事前準備\n\n Denoのインストール\nDenoがインストールされていない場合は、インストールしましょう。\nhttps://docs.deno.com/runtime/manual/getting_started/installation\nに方法が...",
+    "link": "https://zenn.dev/liberluna/articles/20231104_deno_linebot",
+    "guid": "https://zenn.dev/liberluna/articles/20231104_deno_linebot",
+    "pubDate": "Sat, 04 Nov 2023 03:25:45 GMT",
+    "enclosure": "",
+    "dc:creator": "nakasyou"
+  },
+  {
+    "title": "Deno 1.38が出た！",
+    "description": "Deno 1.38がリリースされました！\n今まで通り\ndeno upgrade\nでアップデートできます。\nその一部の機能をご紹介します！\n\n HMR!!\nHMRです！Viteとかであるモジュールをスムーズに置き換えられるあれです！\nそれがDenoでできるようになるんです！\n例えば、main.tsを以下のようにします。\nimport { countUp } from './count.ts'\n\nsetInterval(() =&gt; {\n  console.log(countUp())\n}, 1000)\n\naddEventListener('hmr', () =&gt; {\n  cons...",
+    "link": "https://zenn.dev/nakasyou/articles/20231103_deno_1_38",
+    "guid": "https://zenn.dev/nakasyou/articles/20231103_deno_1_38",
+    "pubDate": "Fri, 03 Nov 2023 12:32:50 GMT",
+    "enclosure": "",
+    "dc:creator": "nakasyou"
+  },
+  {
+    "title": "学校のWebフィルタリングの仕組みとその解除方法",
+    "description": "こんにちは。\n学校のWebフィルタリングの仕組みと、その解除方法について説明しようと思います。\n\n なにを説明するか\nここでの「Webフィルタリング」とは、自動プロキシ構成ファイルproxy.pacを用いたフィルタリングのことを指します。\nまた、iPadを用いています。\nここに書いてあることが当てはまらない場合もあります。\n\n 対象読者\n\n学校のフィルタリングの仕組みが気になる人\n学校のフィルタリングを解除してみたい人\n学校のフィルタリングが解除されないように対策したい人\n\nまた、以下の知識があるとわかりやすいと思います。\n\nプロキシ自動設定ファイル\nプロキシ\nDNS\nLinux\nIP\n...",
+    "link": "https://zenn.dev/nakasyou/articles/20231022_about_school_filter",
+    "guid": "https://zenn.dev/nakasyou/articles/20231022_about_school_filter",
+    "pubDate": "Sun, 22 Oct 2023 13:17:43 GMT",
+    "enclosure": "",
+    "dc:creator": "nakasyou"
+  },
+  {
+    "title": "SolidJSが使いやすい",
+    "description": "SolidJSというフロントエンドUIライブラリがかなりいいので紹介します。\n\n SolidJSとは？\nReactって知っていますよね？Reactは、UIライブラリです。Solidも、Reactと同じ立場です。\n百聞は一見にしかずということで、コードを見てみましょう。カウンターのコードです。\nimport { createSignal } from 'solid-js'\n\nexport const App = () =&gt; {\n  const [count, setCount] = createSignal(0)\n\n  return &lt;&gt;\n    &lt;button o...",
+    "link": "https://zenn.dev/nakasyou/articles/20231020_solidjs",
+    "guid": "https://zenn.dev/nakasyou/articles/20231020_solidjs",
+    "pubDate": "Fri, 20 Oct 2023 12:30:23 GMT",
+    "enclosure": "",
+    "dc:creator": "nakasyou"
+  },
+  {
+    "title": "Alpine.jsがなんかよさそう",
+    "description": "Alpine.jsというUIライブラリが気になったので、試してみました。\n\n なにこれ\nUIライブラリみたいなやつです。ReactやVue、SolidやSvelte的立ち位置っぽいです。\n公式サイトでは、「モダンなWebのためのjQuery」らしいです。\nでも、これらのUIライブラリとはちょっと違います。\nとても軽くて、とてもシンプルなんです！\n\n 私がAlpine.jsを見てめっちゃ良さそうだと思ったポイント！\nです。\n\n 1. TypeScriptがない\nAlpine.js、TypeScriptないです。\n型を気にせず、気軽に開発できます！\n\n 2. &lt;script&gt;タグ...",
+    "link": "https://zenn.dev/nakasyou/articles/20231018_alpinejs",
+    "guid": "https://zenn.dev/nakasyou/articles/20231018_alpinejs",
+    "pubDate": "Wed, 18 Oct 2023 13:14:12 GMT",
+    "enclosure": "",
+    "dc:creator": "nakasyou"
+  },
+  {
+    "title": "Fresh 1.4の新機能！事前ビルドで高速化！",
+    "description": "DenoによるWebフレームワーク、Freshで、事前ビルド機能が追加されたので紹介します。\n\n 以前のFreshの欠点\n以前のFreshでは、islandが含まれるページの初回ロードが非常に遅かったです。\nこれだと、ユーザー体験を悪くさせる危険性がありました。(私はこれに気づいてからあまりFreshを使用しなくなりました)\nこの理由は、1ファイルごとにhttpリクエストを送っていたからです。Viteの開発モードのようなイメージです(ローカルでは問題ない)。\nViteは事前ビルドをしていますが、以前のFreshはしていないので非常に低速でした。\nFreshが事前ビルドを使用しなかった理由...",
+    "link": "https://zenn.dev/nakasyou/articles/2023_09_03_fresh_build",
+    "guid": "https://zenn.dev/nakasyou/articles/2023_09_03_fresh_build",
+    "pubDate": "Sun, 03 Sep 2023 11:16:48 GMT",
+    "enclosure": "",
+    "dc:creator": "nakasyou"
+  },
+  {
+    "title": "Astroで、Tabler Iconsを使う",
+    "description": "TRANsのウェブサイトは、Astroを使用しています。\nAstroで、Tabler Iconsを使う方法を解説します。\nTabler Iconには、Astro用のコンポーネントライブラリが存在しません。そのため、@tabler/icons-preactを、preact経由で使います。\nまず、@tabler/icons-preactをインストールします。\npnpm i @tabler/icons-preact\nこれで、preact用のTabler iconsがインストールされました。\n次に、Astroのpreactプラグインをインストールします。これにより、preactが使えるようになり...",
+    "link": "https://zenn.dev/trans/articles/20230801_0001",
+    "guid": "https://zenn.dev/trans/articles/20230801_0001",
+    "pubDate": "Sun, 03 Sep 2023 10:39:17 GMT",
+    "enclosure": "",
+    "dc:creator": "nakasyou"
+  },
+  {
+    "title": "Freshで、TailwindCSS v3を使う方法",
+    "description": "デフォルトの状態では、Freshは、Tailwind v2を使っています。これは、Twind v0を使っているからです。\nTwind v1にアップデートすることで、Tailwind v3を使うことができます。\n\n Steps\nまず、./main.tsを以下のように書き換えます。\nimport twindPlugin from \"$fresh/plugins/twind.ts\"; // Old\nimport twindPlugin from \"$fresh/plugins/twindv1.ts\"; // New\nこれで、Freshのtwindプラグインが、Twind v1を使用するようにな...",
+    "link": "https://zenn.dev/nakasyou/articles/20230801_0000",
+    "guid": "https://zenn.dev/nakasyou/articles/20230801_0000",
+    "pubDate": "Tue, 01 Aug 2023 02:04:38 GMT",
+    "enclosure": "",
+    "dc:creator": "nakasyou"
+  }
+]
